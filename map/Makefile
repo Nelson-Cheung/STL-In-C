@@ -1,4 +1,4 @@
-all:map_test
+all:map_test.out
 CFLAGS=-g -O0 -Wall
 
 map_test.out: test.o rbtree.o map.o

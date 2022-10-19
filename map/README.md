@@ -8,7 +8,7 @@
 ## 快速开始
 ```shell
 make
-./map_test
+./map_test.out
 ```
 
 ## 接口
