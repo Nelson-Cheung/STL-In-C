@@ -6,9 +6,10 @@
 + 当map不再使用后，使用`map_clear`进行空间释放，否则会发生内存泄漏。
 
 ## 快速开始
+具体用法可以参照[example.c](example.c)
 ```shell
 make
-./map_test.out
+./example.out
 ```
 
 ## 接口
@@ -30,5 +31,12 @@ int map_del(struct map *m, const void *key);
 void map_for_each(struct map *m, map_for_each_t for_each);
 ```
 
-
-
+## 测试
+### 随机测试
+```shell
+./map_test.out
+```
+### 内存泄漏测试
+```shell
+valgrind --tool=memcheck --leak-check=full ./map_test.out
+```

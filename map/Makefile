@@ -1,5 +1,12 @@
-all:map_test.out
-CFLAGS=-g -O0 -Wall
+CFLAGS = -g -O0 -Wall
+
+all:map_test.out example.out
+
+example.out: exmaple.o rbtree.o map.o
+	gcc $(CFLAGS) $^ -o $@
+
+exmaple.o: example.c
+	gcc $(CFLAGS) -c $< -o $@
 
 map_test.out: test.o rbtree.o map.o
 	gcc $(CFLAGS) $^ -o $@
