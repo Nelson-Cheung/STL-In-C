@@ -1,5 +1,6 @@
 #include "hashmap.h"
 #include "xxhash32.h"
+#include "xxhash64.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -30,6 +31,8 @@ void hashmap_clear(struct hashmap *m)
         while (current)
         {
             next = current->next;
+            free(current->key);
+            free(current->val);
             free(current);
             current = next;
         }
@@ -45,7 +48,8 @@ void hashmap_clear(struct hashmap *m)
 
 static inline unsigned int hashmap_index(struct hashmap *m, const void *key)
 {
-    return xxhash32(key, m->key_size, 0) % m->table_size;
+    // return xxhash32(key, m->key_size, 0) % m->table_size;
+    return xxhash64(key, m->key_size, 0) % m->table_size;
 }
 
 static inline unsigned int hashmap_compare(struct hashmap *m, const void *x, const void *y)
@@ -108,6 +112,8 @@ void hashmap_del(struct hashmap *m, const void *key)
         if (hashmap_compare(m, key, current->key))
         {
             prev->next = current->next;
+            free(current->key);
+            free(current->val);
             free(current);
             m->size -= 1;
             return;
